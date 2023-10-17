@@ -26,17 +26,19 @@ import static com.mengcraft.antispam.AntiSpam.nil;
  * Created on 16-10-11.
  */
 public class SpamListener implements Listener {
-
     private final Map<UUID, Integer> time = new HashMap<>();
     private final Map<UUID, String> message = new HashMap<>();
+    private final Map<UUID, Integer> threshold = new HashMap<>();
 
     private Pattern whiteList;
     private int length;
     private int limit;
     private int wait;
+    private int spamLimit;
     private int commandWait;
     private boolean notNotify;
     private boolean debug;
+    private boolean punish;
 
     private final AntiSpam spam;
 
@@ -52,6 +54,8 @@ public class SpamListener implements Listener {
         commandWait = spam.getConfig().getInt("config.commandWait");
         notNotify = spam.getConfig().getBoolean("config.notNotify");
         debug = spam.getConfig().getBoolean("debug");
+        punish = spam.getConfig().getBoolean("config.usePunishment");
+        spamLimit = spam.getConfig().getInt("config.spamLimit");
         val l = spam.getConfig().getStringList("config.commandWhiteList");
         if (spam.remoteEnabled) {
             spam.getDataSource().find(DWhitelist.class).findList().forEach(i -> l.add(i.getLine()));
@@ -87,6 +91,15 @@ public class SpamListener implements Listener {
         }
 
         if (spam(p, chat)) {
+            if (punish) {
+                threshold.putIfAbsent(p.getUniqueId(), 0);
+                threshold.computeIfPresent(p.getUniqueId(), (uuid, integer) -> {
+                    if (integer >= spamLimit){
+                        p.kickPlayer(ChatColor.RED + "尝试刷屏次数过多.");
+                    }
+                    return integer + 1;
+                });
+            }
             event.setCancelled(true);
             p.sendMessage(ChatColor.RED + "请不要刷屏或发送重复消息哦");
         } else if (check(p, chat)) {
@@ -126,6 +139,7 @@ public class SpamListener implements Listener {
         val id = event.getPlayer().getUniqueId();
         time.remove(id);
         message.remove(id);
+        threshold.remove(id);
     }
 
     private boolean spam(Player player) {

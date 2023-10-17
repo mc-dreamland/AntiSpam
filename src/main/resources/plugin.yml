@@ -1,6 +1,7 @@
 name: AntiSpam
 version: ${project.version}
 main: com.mengcraft.antispam.AntiSpam
+api-version: 1.13
 
 permissions:
   spam.bypass:

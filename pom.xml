@@ -5,43 +5,47 @@
     <version>0.4-SNAPSHOT</version>
     <repositories>
         <repository>
-            <id>releases</id>
-            <url>http://10.120.173.98:8081/nexus/content/repositories/releases/</url>
-        </repository>
-        <repository>
-            <id>snapshots</id>
-            <url>http://10.120.173.98:8081/nexus/content/repositories/snapshots/</url>
+            <id>bjd-public</id>
+            <url>https://nexus.bjd-mc.com:8443/repository/maven-public/</url>
         </repository>
     </repositories>
     <distributionManagement>
         <repository>
             <id>releases</id>
-            <url>http://10.120.173.98:8081/nexus/content/repositories/releases/</url>
+            <url>https://nexus.bjd-mc.com:8443/repository/maven-releases/</url>
         </repository>
         <snapshotRepository>
             <id>snapshots</id>
-            <url>http://10.120.173.98:8081/nexus/content/repositories/snapshots/</url>
+            <url>https://nexus.bjd-mc.com:8443/repository/maven-snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
     <dependencies>
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.11.2-R0.1-SNAPSHOT</version>
+            <version>1.12.2-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.mengcraft</groupId>
-            <artifactId>simpleorm</artifactId>
-            <version>1.3-SNAPSHOT</version>
+            <artifactId>SimpleORM</artifactId>
+            <version>1.4</version>
+            <classifier>SNAPSHOT</classifier>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.8</version>
+            <version>1.18.30</version>
+            <scope>provided</scope>
+        </dependency><!-- https://mvnrepository.com/artifact/org.avaje.ebean/ebean -->
+        <dependency>
+            <groupId>org.avaje.ebean</groupId>
+            <artifactId>ebean</artifactId>
+            <version>9.5.1</version>
             <scope>provided</scope>
         </dependency>
+
     </dependencies>
     <build>
         <defaultGoal>clean install</defaultGoal>

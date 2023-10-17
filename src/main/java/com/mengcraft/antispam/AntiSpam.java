@@ -132,12 +132,7 @@ public class AntiSpam extends JavaPlugin {
                 log.setPlayer(p.getName());
                 log.setChat(i);
                 log.setIp(p.getAddress().getAddress().getHostAddress());
-                val handle = RefHelper.invoke(p, "getHandle");
-                val conn = RefHelper.getField(handle, "playerConnection");
-                val mgr = RefHelper.getField(conn, "networkManager");
-                val net = RefHelper.getField(mgr, "channel");
-                SocketAddress srv = RefHelper.invoke(net, "localAddress");
-                log.setServer(srv.toString().substring(1));
+                log.setServer(this.getServer().getServerName());
                 pool.execute(() -> dataSource.save(log));
             } else {
                 getLogger().info(p.getName() + "|" + i);

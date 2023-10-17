@@ -1,19 +1,21 @@
 config:
   notNotify: false
-  commandWait: 2
+  commandWait: 1
   chatWait: 2
-  chatLengthLimit: 32
+  chatLengthLimit: 64
   chatLimit: 8
   useRemote: true
   log: true
   dirtyList:
-  - '你妈'
-  - 'cao'
+    - '你个fw'
+    - '你个fvv'
   commandWhiteList:
-  - '/spam'
-  - '/l'
-  - '/login'
-  - '/r'
-  - '/reg'
-  - '/register'
+    - '/spam'
+    - '/l'
+    - '/login'
+    - '/r'
+    - '/reg'
+    - '/register'
+  usePunishment: false
+  spamLimit: 10
 debug: false
